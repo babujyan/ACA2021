@@ -59,10 +59,11 @@ def fetch_lfw_dataset(attrs_name = "lfw_attributes.txt",
 
     assert len(df)==len(df_attrs),"lost some data when merging dataframes"
 
+    return df
     #image preprocessing
-    all_photos =df['photo_path'].apply(imread)\
-                                .apply(lambda img:img[dy:-dy,dx:-dx])\
-                                .apply(lambda img: resize(img,[dimx,dimy]))
+    all_photos = df['photo_path'].apply(imread)\
+                                 .apply(lambda img: img[dy:-dy,dx:-dx])\
+                                 .apply(lambda img: resize(img, (dimx, dimy)))
 
     all_photos = np.stack(all_photos.values).astype('uint8')
     all_attrs = df.drop(["photo_path","person","imagenum"],axis=1)
